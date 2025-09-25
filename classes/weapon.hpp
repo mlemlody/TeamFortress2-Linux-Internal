@@ -744,6 +744,31 @@ public:
     return *(short*)(this+0xc30+0x90+0x44);
   }
 
+  bool is_projectile(void) {
+    switch (this->get_type_id()) {
+    case TF_WEAPON_ROCKETLAUNCHER:
+    case TF_WEAPON_ROCKETLAUNCHER_DIRECTHIT:
+    case TF_WEAPON_GRENADELAUNCHER:
+    case TF_WEAPON_PIPEBOMBLAUNCHER:
+    case TF_WEAPON_FLAREGUN:
+    case TF_WEAPON_SYRINGEGUN_MEDIC:
+    case TF_WEAPON_COMPOUND_BOW:
+    case TF_WEAPON_CROSSBOW:
+    case TF_WEAPON_PARTICLE_CANNON: // Cow Mangler
+    case TF_WEAPON_DRG_POMSON:      // Pomson 6000
+    case TF_WEAPON_CANNON:          // Loose Cannon
+    case TF_WEAPON_FLAMETHROWER:    // Treat as short-range projectile/stream
+      return true;
+    default:
+      return false;
+    }
+  }
+
+  bool is_hitscan(void) {
+    // If it's neither melee nor projectile, treat it as hitscan
+    return !is_melee() && !is_projectile();
+  }
+
   int get_type_id(void) {
     void** vtable = *(void***)this;
 
@@ -767,6 +792,16 @@ public:
     case TF_WEAPON_CROWBAR:
     case TF_WEAPON_KNIFE:
     case TF_WEAPON_WRENCH:
+      return true;
+    }
+
+    // i dunno, it didnt work with typeid so yeah
+    switch (this->get_def_id()) {
+    case Sniper_t_Kukri:
+    case Sniper_t_KukriR:
+    case Sniper_t_TheTribalmansShiv:
+    case Sniper_t_TheBushwacka:
+    case Sniper_t_TheShahanshah:
       return true;
     }
 

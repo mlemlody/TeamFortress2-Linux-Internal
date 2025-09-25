@@ -10,6 +10,9 @@
 #include "../print.hpp"
 
 #include "../hacks/aimbot/aimbot.cpp"
+#include "../hacks/aimbot/aimbothitscan.cpp"
+#include "../hacks/aimbot/aimbotprojectile.cpp"
+#include "../hacks/aimbot/aimbotmelee.cpp"
 #include "../hacks/bhop/bhop.cpp"
 #include "../hacks/navbot/parse_navmesh.cpp"
 #include "../hacks/navbot/navbot.cpp"
